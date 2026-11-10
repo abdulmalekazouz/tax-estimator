@@ -14,8 +14,7 @@ refund or balance due -- for tax years 2022-2024.
 
 ## Why this project
 
-I'm applying for a junior software engineer role at a tax firm, so I wanted a
-project that is simultaneously (a) a demonstration of clean, tested, typed
+This project aims to be both (a) a demonstration of clean, tested, typed
 Python, and (b) a reflection of actual U.S. tax mechanics -- bracket
 progressivity, the qualified-dividends/capital-gains "stacking" rule, credit
 phase-outs, and self-employment tax -- rather than a toy calculator that just
