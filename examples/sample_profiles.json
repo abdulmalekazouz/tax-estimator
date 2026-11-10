@@ -1,0 +1,32 @@
+[
+  {
+    "tax_year": 2024,
+    "filing_status": "single",
+    "wages": 85000,
+    "interest_income": 250,
+    "ordinary_dividends": 600,
+    "qualified_dividends": 600,
+    "pretax_retirement_contributions": 6000,
+    "withholding": 9800
+  },
+  {
+    "tax_year": 2024,
+    "filing_status": "married_jointly",
+    "wages": 140000,
+    "interest_income": 1200,
+    "long_term_capital_gains": 15000,
+    "qualifying_children": 2,
+    "pretax_retirement_contributions": 12000,
+    "itemized_deductions": 0,
+    "withholding": 18500,
+    "estimated_payments": 1000
+  },
+  {
+    "tax_year": 2023,
+    "filing_status": "head_of_household",
+    "wages": 52000,
+    "self_employment_income": 18000,
+    "qualifying_children": 1,
+    "withholding": 4200
+  }
+]

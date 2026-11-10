@@ -1,0 +1,152 @@
+:root {
+    color-scheme: light dark;
+    --bg: #f7f7f5;
+    --panel: #ffffff;
+    --text: #1f2430;
+    --muted: #6b7280;
+    --border: #e3e3df;
+    --accent: #2f6f4f;
+    --accent-dark: #234f39;
+    --owe: #b3471e;
+    --refund: #2f6f4f;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg: #16181d;
+        --panel: #1e2127;
+        --text: #e7e7e3;
+        --muted: #9aa0ac;
+        --border: #30333a;
+        --accent: #5fbf8e;
+        --accent-dark: #7fd6ab;
+        --owe: #e0824f;
+        --refund: #5fbf8e;
+    }
+}
+
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+}
+
+.container {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 2.5rem 1.5rem 4rem;
+}
+
+h1 {
+    font-size: 1.6rem;
+    margin-bottom: 0.25rem;
+}
+
+.subtitle {
+    color: var(--muted);
+    margin-top: 0;
+    margin-bottom: 1.75rem;
+}
+
+form, .panel {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.5rem;
+}
+
+fieldset {
+    border: none;
+    padding: 0;
+    margin: 0 0 1.25rem 0;
+}
+
+legend {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: var(--accent-dark);
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 0.9rem;
+}
+
+label {
+    display: flex;
+    flex-direction: column;
+    font-size: 0.85rem;
+    color: var(--muted);
+    gap: 0.3rem;
+}
+
+input, select {
+    font-size: 1rem;
+    padding: 0.5rem 0.6rem;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    background: var(--bg);
+    color: var(--text);
+}
+
+button {
+    margin-top: 1rem;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    padding: 0.7rem 1.4rem;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+button:hover { background: var(--accent-dark); }
+
+.error {
+    background: color-mix(in srgb, var(--owe) 15%, transparent);
+    border: 1px solid var(--owe);
+    color: var(--owe);
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    margin-bottom: 1.25rem;
+    white-space: pre-wrap;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+}
+
+td, th {
+    text-align: left;
+    padding: 0.5rem 0.25rem;
+    border-bottom: 1px solid var(--border);
+}
+
+td:last-child, th:last-child { text-align: right; }
+
+.total-row td {
+    font-weight: 700;
+    border-top: 2px solid var(--border);
+}
+
+.balance {
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+
+.balance.owe { color: var(--owe); }
+.balance.refund { color: var(--refund); }
+
+.disclaimer {
+    margin-top: 2rem;
+    font-size: 0.8rem;
+    color: var(--muted);
+}
+
+a { color: var(--accent-dark); }

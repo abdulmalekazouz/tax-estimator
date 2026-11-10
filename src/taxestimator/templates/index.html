@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Tax Estimator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div class="container">
+    <h1>Federal Income Tax Estimator</h1>
+    <p class="subtitle">Educational estimate only &mdash; not tax advice. See the disclaimer below.</p>
+
+    {% if errors %}
+        <div class="error">{{ errors }}</div>
+    {% endif %}
+
+    <form method="post" action="{{ url_for('estimate') }}">
+        <fieldset>
+            <legend>Filing details</legend>
+            <div class="grid">
+                <label>Tax year
+                    <select name="tax_year">
+                        {% for year in years %}
+                            <option value="{{ year }}" {% if values.get('tax_year')|string == year|string %}selected{% endif %}>{{ year }}</option>
+                        {% endfor %}
+                    </select>
+                </label>
+                <label>Filing status
+                    <select name="filing_status">
+                        {% for status in statuses %}
+                            <option value="{{ status.value }}" {% if values.get('filing_status') == status.value %}selected{% endif %}>{{ status.value.replace('_', ' ') | title }}</option>
+                        {% endfor %}
+                    </select>
+                </label>
+                <label>Qualifying children
+                    <input type="number" name="qualifying_children" min="0" value="{{ values.get('qualifying_children', 0) }}">
+                </label>
+            </div>
+        </fieldset>
+
+        <fieldset>
+            <legend>Income</legend>
+            <div class="grid">
+                <label>Wages (W-2 box 1)
+                    <input type="number" step="0.01" name="wages" value="{{ values.get('wages', '0') }}">
+                </label>
+                <label>Taxable interest
+                    <input type="number" step="0.01" name="interest_income" value="{{ values.get('interest_income', '0') }}">
+                </label>
+                <label>Ordinary dividends
+                    <input type="number" step="0.01" name="ordinary_dividends" value="{{ values.get('ordinary_dividends', '0') }}">
+                </label>
+                <label>...of which qualified dividends
+                    <input type="number" step="0.01" name="qualified_dividends" value="{{ values.get('qualified_dividends', '0') }}">
+                </label>
+                <label>Short-term capital gains
+                    <input type="number" step="0.01" name="short_term_capital_gains" value="{{ values.get('short_term_capital_gains', '0') }}">
+                </label>
+                <label>Long-term capital gains
+                    <input type="number" step="0.01" name="long_term_capital_gains" value="{{ values.get('long_term_capital_gains', '0') }}">
+                </label>
+                <label>Self-employment net profit
+                    <input type="number" step="0.01" name="self_employment_income" value="{{ values.get('self_employment_income', '0') }}">
+                </label>
+                <label>Other income
+                    <input type="number" step="0.01" name="other_income" value="{{ values.get('other_income', '0') }}">
+                </label>
+            </div>
+        </fieldset>
+
+        <fieldset>
+            <legend>Adjustments &amp; deductions</legend>
+            <div class="grid">
+                <label>Pre-tax retirement contributions
+                    <input type="number" step="0.01" name="pretax_retirement_contributions" value="{{ values.get('pretax_retirement_contributions', '0') }}">
+                </label>
+                <label>Itemized deductions (0 to use standard)
+                    <input type="number" step="0.01" name="itemized_deductions" value="{{ values.get('itemized_deductions', '0') }}">
+                </label>
+            </div>
+        </fieldset>
+
+        <fieldset>
+            <legend>Payments already made</legend>
+            <div class="grid">
+                <label>Federal withholding
+                    <input type="number" step="0.01" name="withholding" value="{{ values.get('withholding', '0') }}">
+                </label>
+                <label>Estimated tax payments
+                    <input type="number" step="0.01" name="estimated_payments" value="{{ values.get('estimated_payments', '0') }}">
+                </label>
+            </div>
+        </fieldset>
+
+        <button type="submit">Estimate my tax</button>
+    </form>
+
+    <p class="disclaimer">
+        This tool uses simplified, publicly available IRS bracket data for a limited set of tax
+        years and does not model the AMT, state taxes, the Additional Medicare surtax, the Net
+        Investment Income Tax, or most credits besides the basic Child Tax Credit. It is a
+        portfolio / educational project, not tax software -- consult a qualified tax professional
+        for actual filing decisions.
+    </p>
+</div>
+</body>
+</html>

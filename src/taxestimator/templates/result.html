@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Tax Estimate Result</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div class="container">
+    <h1>Tax Estimate &mdash; {{ result.tax_year }}</h1>
+    <p class="subtitle">{{ result.filing_status.value.replace('_', ' ') | title }}</p>
+
+    <div class="panel">
+        <table>
+            <tr><td>Total income</td><td>${{ "%.2f"|format(result.total_income) }}</td></tr>
+            <tr><td>Adjustments</td><td>${{ "%.2f"|format(result.adjustments) }}</td></tr>
+            <tr><td>Adjusted gross income (AGI)</td><td>${{ "%.2f"|format(result.adjusted_gross_income) }}</td></tr>
+            <tr><td>Deduction used</td><td>${{ "%.2f"|format(result.deduction_used) }}</td></tr>
+            <tr><td>Taxable income</td><td>${{ "%.2f"|format(result.taxable_income) }}</td></tr>
+            <tr><td>&nbsp;&nbsp;&ndash; ordinary portion</td><td>${{ "%.2f"|format(result.ordinary_taxable_income) }}</td></tr>
+            <tr><td>&nbsp;&nbsp;&ndash; preferential portion (QD/LTCG)</td><td>${{ "%.2f"|format(result.preferential_income) }}</td></tr>
+            <tr><td>Tax on ordinary income</td><td>${{ "%.2f"|format(result.ordinary_tax) }}</td></tr>
+            <tr><td>Tax on preferential income</td><td>${{ "%.2f"|format(result.preferential_tax) }}</td></tr>
+            <tr><td>Self-employment tax</td><td>${{ "%.2f"|format(result.self_employment_tax) }}</td></tr>
+            <tr><td>Child Tax Credit</td><td>-${{ "%.2f"|format(result.child_tax_credit) }}</td></tr>
+            <tr class="total-row"><td>Total tax</td><td>${{ "%.2f"|format(result.total_tax) }}</td></tr>
+            <tr><td>Marginal rate</td><td>{{ "%.1f"|format(result.marginal_rate * 100) }}%</td></tr>
+            <tr><td>Effective rate</td><td>{{ "%.2f"|format(result.effective_rate * 100) }}%</td></tr>
+            <tr><td>Payments &amp; withholding</td><td>${{ "%.2f"|format(result.payments) }}</td></tr>
+        </table>
+
+        {% if result.balance_due > 0 %}
+            <p class="balance owe">You owe approximately ${{ "%.2f"|format(result.balance_due) }}.</p>
+        {% else %}
+            <p class="balance refund">Estimated refund of approximately ${{ "%.2f"|format(-result.balance_due) }}.</p>
+        {% endif %}
+    </div>
+
+    <p><a href="{{ url_for('index') }}">&larr; Run another estimate</a></p>
+
+    <p class="disclaimer">
+        Educational estimate only, based on simplified public IRS data. Not tax advice.
+    </p>
+</div>
+</body>
+</html>
